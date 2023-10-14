@@ -54,7 +54,7 @@ export default function Home() {
         </div>
 
       <div className="h-60 w-80">
-        <img src="RchNorte.jpeg" alt="RchNorte" className="" />
+        <img src="Rch.jpeg" alt="RchNorte" className="" />
       </div>
 
       <div className="mt-60">
