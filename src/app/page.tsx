@@ -1,6 +1,7 @@
 "use client";
-import Colors from "./themeApp/page";
+
 import router from "next/router";
+
 
 export default function Home() {
   return (
@@ -11,7 +12,7 @@ export default function Home() {
       <p className="mb-5 text-base md:text-lg">
         Este proyecto consta de varios módulos:
       </p>
-
+ 
       <div className="mb-5 flex flex-wrap justify-center">
         <div
           className="m-2 w-56 rounded-lg bg-blue-100 p-4 shadow-md md:w-64"
