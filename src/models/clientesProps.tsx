@@ -34,13 +34,6 @@ const clientesProps = [
     required: true,
   },
   {
-    label: "Fecha de Registro",
-    name: "fecha_registro",
-    type: "date", // Utiliza el tipo "date" para fechas
-    // required: true,
-    readOnly: true, 
-  },
-  {
     label: "Historial de Compras",
     name: "historial_compras",
     type: "text",

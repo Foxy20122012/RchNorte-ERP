@@ -3,8 +3,8 @@ import { prisma } from "@/libs/prisma";
 
 export async function GET() {
   try {
-    const clientes = await prisma.clientes.findMany();
-    return NextResponse.json(clientes);
+    const empleados = await prisma.empleados.findMany();
+    return NextResponse.json(empleados);
   } catch (error) {
     if (error instanceof Error) {
       return NextResponse.json(
@@ -21,20 +21,29 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    const {  nombre, direccion, telefono, correo_electronico, fecha_registro, historial_compras, } = await request.json();
+    const {
+      nombre,
+      apellido,
+      direccion,
+      telefono,
+      correo_electronico,
+      puesto,
+      salario,
+    } = await request.json();
 
-    const newClientes = await prisma.clientes.create({
+    const newEmpleado = await prisma.empleados.create({
       data: {
-        nombre,          
-        direccion,         
-        telefono,        
+        nombre,
+        apellido,
+        direccion,
+        telefono,
         correo_electronico,
-        fecha_registro, 
-        historial_compras,
+        puesto,
+        salario,
       },
     });
 
-    return NextResponse.json(newClientes);
+    return NextResponse.json(newEmpleado);
   } catch (error) {
     if (error instanceof Error) {
       return NextResponse.json(
@@ -48,5 +57,3 @@ export async function POST(request: Request) {
     }
   }
 }
-
-

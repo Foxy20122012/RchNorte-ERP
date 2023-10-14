@@ -25,13 +25,13 @@ const MainLayout = () => {
       {/* Contenido principal */}
       <Box sx={{ flexGrow: 1, ml: showSidebar ? 30 : 0 }}>
         {/* AppBar */}
-        <AppBar sx={{ backgroundColor: '#89CFF0', color: 'black', position: 'fixed', zIndex: 10, width: '100%' }}>
+        <AppBar sx={{ backgroundColor: '#0071D5', color: 'black', position: 'fixed', zIndex: 10, width: '100%' }}>
           <Toolbar>
             <Button color="inherit" onClick={handleToggleSidebar}>
               <AiOutlinePicRight className="text-2xl" />
             </Button>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Choco Chapin
+              Servicios RchNorte
             </Typography>
             <Button color="inherit">
               <BiUserCircle size={24} style={{ marginRight: '16px' }} />

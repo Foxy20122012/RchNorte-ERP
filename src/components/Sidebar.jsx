@@ -8,12 +8,12 @@ import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
 import { LuFiles } from "react-icons/lu";
 import { HiOutlineUserGroup } from "react-icons/hi";
-import { BsBoxSeam } from "react-icons/bs";
-import { LiaMoneyBillWaveSolid } from "react-icons/lia";
+import { BsBoxSeam, BsFileEarmarkSpreadsheet } from "react-icons/bs";
 import { IoIosArrowForward } from 'react-icons/io';
 import { FiBox } from 'react-icons/fi';
 import { GiPayMoney } from "react-icons/gi";
-import { FiArrowLeft } from "react-icons/fi";
+import { FiArrowLeft } from "react-icons/fi"; // PiNotePencilFill
+import { PiNotePencilFill } from "react-icons/pi";
 import Collapse from "@mui/material/Collapse";
 
 const Sidebar = () => {
@@ -31,6 +31,11 @@ const Sidebar = () => {
       icon: <LuFiles className="m-3 text-xl font-bold" />,
     },
     {
+      text: "Pendientes",
+      link: "/nota",
+      icon: <PiNotePencilFill className="m-3 text-xl font-bold" />,
+    },
+    {
       text: "Inventario",
       icon: <BsBoxSeam className="m-3 text-xl font-bold" />,
       onClick: handleInventoryClick,
@@ -46,9 +51,9 @@ const Sidebar = () => {
       icon: <GiPayMoney className="m-3 text-xl font-bold" />,
     },
     {
-      text: "Gestión Financiera",
-      link: "/nota",
-      icon: <LiaMoneyBillWaveSolid className="m-3 text-xl font-bold" />,
+      text: "Planilla",
+      link: "/planilla",
+      icon: <BsFileEarmarkSpreadsheet className="m-3 text-xl font-bold" />,
     },
     {
       text: "Cerrar Sesión",
@@ -107,12 +112,6 @@ const Sidebar = () => {
                     <ListItemButton component="a" href="/salidasMateriasPrimas">
                       <IoIosArrowForward className="m-3 text-xl font-bold" />
                       Entradas y Salidas de Materia Prima
-                    </ListItemButton>
-                  </ListItem>
-                  <ListItem disablePadding>
-                    <ListItemButton component="a" href="/productosTerminados">
-                      <FiBox className="m-3 text-xl font-bold" />
-                      Productos Terminados
                     </ListItemButton>
                   </ListItem>
                   {/* Puedes agregar más opciones de submenú según sea necesario */}

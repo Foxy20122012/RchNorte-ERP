@@ -8,7 +8,6 @@ export type Row = {
   direccion: string;
   telefono: string;
   correo_electronico: string;
-  fecha_registro: Date;
   historial_compras: string;
 };
 
@@ -19,7 +18,6 @@ export const transformClientesToRows = (clientes: Clientes[]): Row[] => {
     direccion: cliente.direccion || "",
     telefono: cliente.telefono || "",
     correo_electronico: cliente.correo_electronico || "",
-    fecha_registro: cliente.fecha_registro || new Date(0), // Fecha predeterminada en caso de ser null
     historial_compras: cliente.historial_compras || "",
   }));
 };
@@ -32,6 +30,5 @@ export const clientesColumns: Record<ClientesModel, string> = {
   direccion: "Dirección",
   telefono: "Teléfono",
   correo_electronico: "Correo Electrónico",
-  fecha_registro: "Fecha de Registro",
-  historial_compras: "Historial de Compras",
+  historial_compras: "Historial de Servicios.",
 };

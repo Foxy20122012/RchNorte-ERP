@@ -8,7 +8,7 @@ datasource db {
 }
 
 model Note {
-  id        Int       @id @default(autoincrement())
+  id        Int       @id @unique(map: "id_UNIQUE") @default(autoincrement())
   title     String?   @db.VarChar(255)
   content   String?   @db.Text
   createdAt DateTime? @db.DateTime(0)
@@ -16,7 +16,7 @@ model Note {
 }
 
 model Clientes {
-  id                 Int       @id @default(autoincrement())
+  id                 Int       @id @unique(map: "id_UNIQUE") @default(autoincrement())
   nombre             String?   @db.VarChar(255)
   direccion          String?   @db.VarChar(255)
   telefono           String?   @db.VarChar(15)
@@ -42,7 +42,7 @@ model Facturas {
 }
 
 model MateriasPrimas {
-  id                    Int                     @id @default(autoincrement())
+  id                    Int                     @id @unique(map: "id_UNIQUE") @default(autoincrement())
   nombre                String?                 @db.VarChar(255)
   cantidad_inicial      Decimal?                @db.Decimal(10, 2)
   proveedor_id          Int?
@@ -81,7 +81,7 @@ model Permisos {
 }
 
 model ProductosTerminados {
-  id                 Int       @id @unique(map: "id_UNIQUE") @default(autoincrement())
+  id                 Int       @id @default(autoincrement())
   nombre             String?   @db.VarChar(255)
   tipo_dulce         String?   @db.VarChar(100)
   cantidad_producida Int?
@@ -153,7 +153,7 @@ model Ventas {
   Facturas      Facturas[]
   Clientes      Clientes?  @relation(fields: [cliente_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_Ventas_Clientes")
 
-  @@index([cliente_id], map: "fk_Ventas_Clientes")
+  @@index([cliente_id], map: "fk_Ventas_Clientes_idx")
 }
 
 model Activos {
@@ -190,7 +190,7 @@ model Gastos {
   categoria_gasto_id     Int?
   CategoriasContabilidad CategoriasContabilidad? @relation(fields: [categoria_gasto_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "Gastos_ibfk_1")
 
-  @@index([categoria_gasto_id], map: "Gastos_ibfk_1")
+  @@index([categoria_gasto_id], map: "categoria_gasto_id")
 }
 
 model IngresosEgresos {
@@ -202,7 +202,7 @@ model IngresosEgresos {
   es_ingreso             Boolean?
   CategoriasContabilidad CategoriasContabilidad? @relation(fields: [categoria_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "IngresosEgresos_ibfk_1")
 
-  @@index([categoria_id], map: "IngresosEgresos_ibfk_1")
+  @@index([categoria_id], map: "categoria_id")
 }
 
 model Presupuestos {
@@ -238,13 +238,3 @@ model CostosProduccion {
   fecha                 DateTime? @db.Date
 }
 
-model Empleados {
-  id                 Int      @id @default(autoincrement())
-  nombre             String?  @db.VarChar(255)
-  apellido           String?  @db.VarChar(255)
-  direccion          String?  @db.VarChar(255)
-  telefono           String?  @db.VarChar(15)
-  correo_electronico String?  @db.VarChar(100)
-  puesto             String?  @db.VarChar(255)
-  salario            Decimal? @db.Decimal(10, 2)
-}
