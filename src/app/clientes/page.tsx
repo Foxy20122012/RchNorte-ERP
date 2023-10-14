@@ -108,6 +108,7 @@ function ClientesPage() {
       <div>
         <DataTable
           title={"Clientes"}
+          // @ts-ignore
           data={rowsClientes}
           columns={columns}
           onEdit={handleEditCliente}
