@@ -10,6 +10,7 @@ export type Row = {
   metodo_pago: string | null;
   estado_pedido: string | null;
   descripcion: string | null;
+  codigo_materia: string | null; // Añadido el campo "codigo_materia"
 };
 
 export const transformVentasToRows = (ventas: Ventas[] | undefined): Row[] => {
@@ -26,6 +27,7 @@ export const transformVentasToRows = (ventas: Ventas[] | undefined): Row[] => {
     metodo_pago: venta.metodo_pago || null,
     estado_pedido: venta.estado_pedido || null,
     descripcion: venta.descripcion || null,
+    codigo_materia: venta.codigo_materia || null,
   }));
 };
 
@@ -40,4 +42,7 @@ export const ventasColumns: Record<VentasModel, string> = {
   metodo_pago: "Método de Pago",
   estado_pedido: "Estado del Pedido",
   descripcion: "Descripción",
+  codigo_materia: "Código de Materia",
 };
+
+

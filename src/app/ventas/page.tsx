@@ -101,6 +101,7 @@ function VentasPage() {
   const ventasData = ventas.map((venta) => ({
     fecha: venta.fecha_venta,
     montoTotal: parseFloat(venta.monto_total?.toString() || "0"),
+    codigoMateria: venta.codigo_materia || "Sin Código",
   }));
 
   const tabListVentas = [
@@ -114,9 +115,9 @@ function VentasPage() {
       ),
     },
     {
-      label: "Perfil",
+      label: "Venta Por Materia",
       icon: <CustomIcon name="FaUser" size={24} />,
-      content: <div className="">Texto 2 de prueba</div>,
+      content: <div className="">Los </div>,
     },
     {
       label: "Configuración",
