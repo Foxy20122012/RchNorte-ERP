@@ -10,7 +10,7 @@ import { transformClientesToRows } from "@/models/clientesModel";
 import DynamicForm from "@/components/DynamicForm";
 import clientesProps from "@/models/clientesProps";
 import useHasMounted from "@/hooks/useHasMounted";
-import Loadig from "@/components/Loading";
+import Loading from "@/components/Loading";
 import CountTag from "@/components/CountTag";
 import { FaHeart } from "react-icons/fa";
 import CustomTabs from "@/components/CustomTabs";
@@ -101,7 +101,7 @@ function ClientesPage() {
 
   const hasMounted = useHasMounted();
   if (!hasMounted) {
-    return null; //<Loadig />
+    return <Loading />; //<Loadig />
   }
   return (
     <div>
