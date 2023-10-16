@@ -23,7 +23,6 @@ model Clientes {
   correo_electronico String?   @db.VarChar(100)
   fecha_registro     DateTime? @db.Date
   historial_compras  String?   @db.Text
-  Pedidos            Pedidos[]
   Ventas             Ventas[]
 }
 
@@ -60,14 +59,12 @@ model MateriasPrimas {
 
 model Pedidos {
   id              Int       @id @default(autoincrement())
-  cliente_id      Int?
   fecha_pedido    DateTime? @db.Date
   fecha_entrega   DateTime? @db.Date
   estado_pedido   String?   @db.VarChar(50)
   detalles_pedido String?   @db.Text
-  Clientes        Clientes? @relation(fields: [cliente_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_Pedidos_Clientes")
-
-  @@index([cliente_id], map: "fk_Pedidos_Clientes_idx")
+  cliente_id      String?   @db.VarChar(255)
+  codigo_pedido   String?   @db.VarChar(255)
 }
 
 model Permisos {

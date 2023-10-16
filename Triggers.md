@@ -2,6 +2,44 @@
 ALTER TABLE Ventas
 ADD codigo_materia VARCHAR(255);
 
+# Modificación de la tabla Pedidos 
+
+ALTER TABLE Pedidos
+ADD codigo_pedido VARCHAR(255);
+
+## Creacion de un trigger para la generación de un codigo unico para asigarselo al campo de codigo_pedido de la tabla pedidos
+
+DELIMITER //
+
+CREATE FUNCTION GenerarCodigoUnico() RETURNS VARCHAR(255)
+BEGIN
+  DECLARE codigo VARCHAR(255);
+  SET codigo = CONCAT('VP', LPAD(FLOOR(RAND() * 10000), 4, '0'));
+  -- Verificar si el código generado ya existe en la tabla
+  WHILE EXISTS (SELECT 1 FROM Pedidos WHERE codigo_pedido = codigo) DO
+    SET codigo = CONCAT('VP', LPAD(FLOOR(RAND() * 10000), 4, '0'));
+  END WHILE;
+  RETURN codigo;
+END;
+//
+
+DELIMITER ;
+
+## Asignación de trigger al campo de la tabla pedidos. Para que al momento de una inserción se le asigne un codigo único al campo
+
+DELIMITER //
+
+CREATE TRIGGER AsignarCodigoUnico
+BEFORE INSERT ON Pedidos
+FOR EACH ROW
+BEGIN
+  SET NEW.codigo_pedido = GenerarCodigoUnico();
+END;
+//
+
+DELIMITER ;
+
+
 ### Trigger para modificar la fecha en la base de datos 
 
 DELIMITER //

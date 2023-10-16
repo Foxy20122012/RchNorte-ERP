@@ -1,4 +1,5 @@
 "use client";
+"use client";
 
 import React, { useState } from "react";
 import List from "@mui/material/List";
@@ -9,21 +10,24 @@ import Typography from "@mui/material/Typography";
 import { LuFiles } from "react-icons/lu";
 import { HiOutlineUserGroup } from "react-icons/hi";
 import { BsBoxSeam, BsFileEarmarkSpreadsheet } from "react-icons/bs";
-import { IoIosArrowForward } from 'react-icons/io';
-import { FiBox } from 'react-icons/fi';
-import { GiPayMoney } from "react-icons/gi";
-import { FiArrowLeft } from "react-icons/fi"; // PiNotePencilFill
+import { IoIosArrowForward } from "react-icons/io";
+import { GiPayMoney, GiMoneyStack } from "react-icons/gi";
+import { FiBox, FiArrowLeft } from "react-icons/fi";
 import { PiNotePencilFill } from "react-icons/pi";
 import Collapse from "@mui/material/Collapse";
 
 const Sidebar = () => {
   const [inventoryOpen, setInventoryOpen] = useState(false); // Estado para controlar la apertura del submenú
+  const [ventasOpen, setVentasOpen] = useState(false); // Estado para controlar la apertura del submenú de Ventas
 
   const handleInventoryClick = () => {
     setInventoryOpen(!inventoryOpen);
   };
 
-  // ...
+  const handleVentasClick = () => {
+    setVentasOpen(!ventasOpen);
+  };
+
   const sidebarItems = [
     {
       text: "Documentación",
@@ -47,8 +51,8 @@ const Sidebar = () => {
     },
     {
       text: "Ventas",
-      link: "/ventas",
-      icon: <GiPayMoney className="m-3 text-xl font-bold" />,
+      icon: <GiMoneyStack className="m-3 text-xl font-bold" />,
+      onClick: handleVentasClick,
     },
     {
       text: "Planilla",
@@ -115,6 +119,28 @@ const Sidebar = () => {
                     </ListItemButton>
                   </ListItem>
                   {/* Puedes agregar más opciones de submenú según sea necesario */}
+                </List>
+              </Collapse>
+            )}
+
+            {/* Renderizar el submenú de Ventas si el botón de Ventas se ha hecho clic */}
+            {item.text === "Ventas" && (
+              <Collapse in={ventasOpen}>
+                {/* Agrega tus opciones de submenú de Ventas aquí */}
+                <List>
+                  <ListItem disablePadding>
+                    <ListItemButton component="a" href="/ventas">
+                      <GiPayMoney className="m-3 text-xl font-bold" />
+                      Ventas
+                    </ListItemButton>
+                  </ListItem>
+                  <ListItem disablePadding>
+                    <ListItemButton component="a" href="/pedidos">
+                      <FiBox className="m-3 text-xl font-bold" />
+                      Pedidos
+                    </ListItemButton>
+                  </ListItem>
+                  {/* Puedes agregar más opciones de submenú de Ventas según sea necesario */}
                 </List>
               </Collapse>
             )}

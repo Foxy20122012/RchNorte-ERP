@@ -79,6 +79,7 @@ export async function PUT(request: Request, { params }: Params) {
         fecha_entrega,  
         estado_pedido,
         detalles_pedido,
+        codigo_pedido,
      } = await request.json();
 
     const updatedpedidos = await prisma.pedidos.update({
@@ -92,6 +93,7 @@ export async function PUT(request: Request, { params }: Params) {
         fecha_entrega,  
         estado_pedido,
         detalles_pedido,
+        codigo_pedido,
       },
     });
 

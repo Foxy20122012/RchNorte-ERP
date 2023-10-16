@@ -19,10 +19,10 @@ function HomePage() {
     return <Loading />; //<Loadig />
   }
   return (
-    <div>
+    <div className="flex justify-center ml-96">
       <div className="flex items-center justify-center h-screen">
-        <div>
-          <NoteForm />
+        <div className="block">
+          <NoteForm  />
           {notes.map((note) => (
             <NoteCard note={note} key={note.id} />
           ))}

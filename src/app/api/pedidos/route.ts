@@ -28,6 +28,7 @@ export async function POST(request: Request) {
         fecha_entrega,  
         estado_pedido,
         detalles_pedido,
+        codigo_pedido,
     } = await request.json();
 
     const newpedidos = await prisma.pedidos.create({
@@ -38,6 +39,7 @@ export async function POST(request: Request) {
         fecha_entrega,  
         estado_pedido,
         detalles_pedido,
+        codigo_pedido,
       },
     });
 
