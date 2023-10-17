@@ -47,3 +47,4 @@ const pedidosProps = [
 ];
 
 export default pedidosProps;
+
