@@ -250,3 +250,4 @@ model Empleados {
   puesto             String?  @db.VarChar(255)
   salario            Decimal? @db.Decimal(10, 2)
 }
+
