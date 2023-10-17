@@ -154,6 +154,7 @@ function MateriasPrimasPage() {
         onConfirm={handleCreateOrUpdateMateriasPrimas}
       >
         <DynamicForm
+        // @ts-ignore
           formProps={materiasPrimasProps}
           onSubmit={handleCreateOrUpdateMateriasPrimas}
           showCreateButton={!selectedMateriasPrimas}
