@@ -158,6 +158,7 @@ function ClientesPage() {
           onConfirm={handleCreateOrUpdateCliente}
         >
           <DynamicForm
+          // @ts-ignore
             formProps={clientesProps}
             onSubmit={handleCreateOrUpdateCliente}
             showCreateButton={!selectedCliente}
