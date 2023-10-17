@@ -65,6 +65,10 @@ model Pedidos {
   detalles_pedido String?   @db.Text
   cliente_id      String?   @db.VarChar(255)
   codigo_pedido   String?   @db.VarChar(255)
+  tipo_pago       String?   @db.VarChar(50)
+  direccion_envio String?   @db.Text
+  notas           String?   @db.Text
+  codigo_venta    String?   @db.VarChar(255)
 }
 
 model Permisos {

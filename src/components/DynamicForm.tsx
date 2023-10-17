@@ -77,6 +77,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({
                 className="border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:shadow-outline"
                 name={field.name}
                 required={field.required}
+                // @ts-ignore
                 onChange={handleChange}
                 value={formData[field.name] || ""}
               >

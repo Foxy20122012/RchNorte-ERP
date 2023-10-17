@@ -1,3 +1,12 @@
+# Modificiaciones a la Tabla Pedidos se agregaron campos 
+
+ALTER TABLE Pedidos
+ADD COLUMN tipo_pago VARCHAR(50),
+ADD COLUMN direccion_envio TEXT,
+ADD COLUMN notas TEXT,
+ADD COLUMN codigo_venta VARCHAR(255);
+
+
 # Modificación de la tabla ventas para poder usar el trigger
 ALTER TABLE Ventas
 ADD codigo_materia VARCHAR(255);
