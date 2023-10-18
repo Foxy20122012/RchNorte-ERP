@@ -158,6 +158,7 @@ function SalidasMateriasPrimas() {
         onConfirm={handleCreateOrUpdateSalidasMateriasPrimas}
       >
         <DynamicForm
+        // @ts-ignore
           formProps={salidaMateriasPrimasProps}
           onSubmit={handleCreateOrUpdateSalidasMateriasPrimas}
           showCreateButton={!selectedSalidasMateriasPrimas}

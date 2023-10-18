@@ -1,5 +1,3 @@
-import { FaCircle, FaCog, FaCheck } from 'react-icons/fa';
-
 const pedidosProps = [
   {
     label: "ID",
@@ -12,39 +10,38 @@ const pedidosProps = [
     name: "estado_pedido",
     type: "select",
     options: [
-      { value: "SinInformacion", label: "Sin Información", icon: <FaCircle /> }, 
-      { value: "Pendiente", label: "Pendiente", icon: "‼️" },
-      { value: "EnProgreso", label: "En Progreso", icon: "❔" },
-      { value: "Completado", label: "Completado", icon: "✅" },
-      { value: "Incompleto", label: "Incompleto", icon: "❌" },
+      { value: "SinInformacion", label: "Sin Información" }, 
+      { value: "Pendiente", label: "Pendiente" },
+      { value: "EnProgreso", label: "En Progreso" },
+      { value: "Completado", label: "Completado" },
+      { value: "Incompleto", label: "Incompleto" },
     ],
   },
   {
     label: "Código de Pedido",
     name: "codigo_pedido",
-    type: "text", // Puedes ajustar el tipo según tus necesidades
+    type: "text",
   },
   {
     label: "Tipo de Pago",
     name: "tipo_pago",
-    type: "select", // Puedes ajustar el tipo según tus necesidades
+    type: "select",
     options: [
-      { value: "Sin Informacion", label: "  ", icon: "⬜"}, 
-      { value: "Efectivo", label: "Efectivo", icon: "💵" },
-      { value: "Tarjeta", label: "Tarjeta", icon: "💳" }, // Asegúrate de que esto esté en la posición 0
+      { value: "Sin Informacion", label: "  " }, 
+      { value: "Efectivo", label: "Efectivo" },
+      { value: "Tarjeta", label: "Tarjeta" },
     ],
   },
   {
     label: "Dirección de Envío",
     name: "direccion_envio",
-    type: "textarea", // Cambiado a "textarea" para campos de texto largos
+    type: "text",
   },
   {
     label: "Código de Venta",
     name: "codigo_venta",
-    type: "text", // Puedes ajustar el tipo según tus necesidades
+    type: "text",
   },
 ];
 
 export default pedidosProps;
-

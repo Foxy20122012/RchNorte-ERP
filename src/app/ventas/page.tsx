@@ -184,6 +184,7 @@ function VentasPage() {
         onConfirm={handleCreateOrUpdateVentas}
       >
         <DynamicForm
+        // @ts-ignore
           formProps={ventasProps}
           onSubmit={handleCreateOrUpdateVentas}
           showCreateButton={!selectedVentas}

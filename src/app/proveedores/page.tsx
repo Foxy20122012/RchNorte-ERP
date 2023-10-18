@@ -157,6 +157,7 @@ function Proveedores() {
         onConfirm={handleCreateOrUpdateProveedores}
       >
         <DynamicForm
+        // @ts-ignore
           formProps={proveedoresProps}
           onSubmit={handleCreateOrUpdateProveedores}
           showCreateButton={!selectedProveedores}

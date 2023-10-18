@@ -1,5 +1,3 @@
-import { FaCircle, FaCog, FaCheck } from 'react-icons/fa';
-
 const ventasProps = [
   {
     label: "ID",
@@ -18,9 +16,9 @@ const ventasProps = [
     name: "metodo_pago",
     type: "select",
     options: [
-      { value: "Sin Informacion", label: "  ", icon: "⬜"}, 
-      { value: "Efectivo", label: "Efectivo", icon: "💵" },
-      { value: "Tarjeta", label: "Tarjeta", icon: "💳" }, // Asegúrate de que esto esté en la posición 0
+      { value: "Sin Informacion", label: "  " }, 
+      { value: "Efectivo", label: "Efectivo" },
+      { value: "Tarjeta", label: "Tarjeta" },
     ],
     maxLength: 100,
   },
@@ -29,26 +27,26 @@ const ventasProps = [
     name: "estado_pedido",
     type: "select",
     options: [
-      { value: "Sin Informacion", label: "  ", icon: "⬜"}, 
-      { value: "Pendiente", label: "Pendiente", icon: "‼️" }, // Asegúrate de que esto esté en la posición 0
-      { value: "EnProgreso", label: "En Progreso", icon: "❔" }, // Luego sigue con las demás opciones
-      { value: "Completado", label: "Completado", icon: "✅" },
-      { value: "Incompleto", label: "Incompleto", icon: "❌" },
+      { value: "Sin Informacion", label: "  " }, 
+      { value: "Pendiente", label: "Pendiente" },
+      { value: "EnProgreso", label: "En Progreso" },
+      { value: "Completado", label: "Completado" },
+      { value: "Incompleto", label: "Incompleto" },
     ],
     maxLength: 50,
   },
   {
     label: "Descripción",
     name: "descripcion",
-    type: "select", // Utiliza "textarea" para campos de texto largos
+    type: "select", // Debes ajustar esto a "text" si se trata de un campo de texto
     options: [
-      { value: "SinInformacion", label: "Sin Información", icon: "⬜" }, // Opción para registros incompletos
-      { value: "VentaMayoreo", label: "Venta al Mayoreo",  },
-      { value: "VentaSimple", label: "Venta Simple"},
+      { value: "SinInformacion", label: "Sin Información" },
+      { value: "VentaMayoreo", label: "Venta al Mayoreo"  },
+      { value: "VentaSimple", label: "Venta Simple" },
       { value: "PrestacionServicios", label: "Prestación de Servicios" },
       { value: "VentaMateriales", label: "Venta de Materiales" },
-      { value: "AlquilerServicios", label: "Alquiler de Servicios"},
-      { value: "OtraTransaccion", label: "Otra Transacción"},
+      { value: "AlquilerServicios", label: "Alquiler de Servicios" },
+      { value: "OtraTransaccion", label: "Otra Transacción" },
     ],
   },
   {

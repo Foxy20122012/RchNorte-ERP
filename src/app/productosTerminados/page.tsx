@@ -155,7 +155,7 @@ function PedidosPage() {
         onConfirm={handleCreateOrUpdatePedidos}
       >
       <DynamicForm
-        
+        // @ts-ignore
         formProps={productosTerminadosProps}
         onSubmit={handleCreateOrUpdatePedidos}
         showCreateButton={!selectedProductosTerminados}
