@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useEffect, useState } from "react";
 import { ProductosTerminados } from "@prisma/client";
 import DataTable from "@/components/DataTable";
@@ -9,12 +9,13 @@ import SuccessModal from "@/components/SuccessModal";
 import { transformProductosTerminadosToRows } from "@/models/productosTerminadosModel";
 import DynamicForm from "@/components/DynamicForm";
 import productosTerminadosProps from "@/models/productosTerminadosProps";
-import useHasMounted from '@/hooks/useHasMounted';
-import Loadig from '@/components/Loading';
+import useHasMounted from "@/hooks/useHasMounted";
+import Loadig from "@/components/Loading";
+import BtnAppBar from "@/components/appBar";
 
-const columns = (Object.keys(productosTerminadosColumns) as (keyof ProductosTerminados)[]).map(
-  (key) => ({ key, label: productosTerminadosColumns[key] })
-);
+const columns = (
+  Object.keys(productosTerminadosColumns) as (keyof ProductosTerminados)[]
+).map((key) => ({ key, label: productosTerminadosColumns[key] }));
 
 function PedidosPage() {
   const {
@@ -28,7 +29,8 @@ function PedidosPage() {
   } = useProductosTerminados();
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
-  const [productosTerminadosToDelete, setProductosTerminadosToDelete] = useState<ProductosTerminados | null>(null);
+  const [productosTerminadosToDelete, setProductosTerminadosToDelete] =
+    useState<ProductosTerminados | null>(null);
   const [isDeleteSuccess, setIsDeleteSuccess] = useState<boolean>(false);
   const [isFormVisible, setIsFormVisible] = useState(false);
 
@@ -64,7 +66,10 @@ function PedidosPage() {
     try {
       if (selectedProductosTerminados) {
         // Estás editando un cliente existente
-        await updateProductosTerminados(selectedProductosTerminados.id, formData);
+        await updateProductosTerminados(
+          selectedProductosTerminados.id,
+          formData
+        );
       } else {
         // Estás creando un nuevo cliente
         await createProductosTerminados(formData);
@@ -81,7 +86,10 @@ function PedidosPage() {
     try {
       if (selectedProductosTerminados) {
         // Estás editando un cliente existente
-        await updateProductosTerminados(selectedProductosTerminados.id, formData); // Envía los datos actualizados al servidor
+        await updateProductosTerminados(
+          selectedProductosTerminados.id,
+          formData
+        ); // Envía los datos actualizados al servidor
       }
       setIsFormVisible(false);
       setSelectedProductosTerminados(null);
@@ -95,78 +103,79 @@ function PedidosPage() {
 
   const hasMounted = useHasMounted();
   if (!hasMounted) {
-    return<Loadig />;
+    return <Loadig />;
   }
 
   return (
     <div>
-      <DataTable
-        title={"Productos terminados"}
-         // @ts-ignore
-        data={rowsPedidos}
-        columns={columns}
-        // @ts-ignore
-        onEdit={handleEditPedidos}
-         // @ts-ignore
-        onDelete={handleDelete}
-        onNew={handleNewClick}
-      />
-      <Modal
-        isOpen={isDeleteModalOpen}
-        title="Confirmar Eliminación"
-        message={`¿Estás seguro de que deseas eliminar la Materia Prima ${productosTerminadosToDelete?.id}?`}
-        onConfirm={async () => {
-          try {
-            if (productosTerminadosToDelete) {
-              await deleteProductosTerminados(productosTerminadosToDelete.id);
-              closeDeleteModal();
-              setIsDeleteSuccess(true);
-              loadProductosTerminados();
+      <BtnAppBar />
+      <div className="ml-10"> 
+        <DataTable
+          title={"Productos terminados"}
+          // @ts-ignore
+          data={rowsPedidos}
+          columns={columns}
+          // @ts-ignore
+          onEdit={handleEditPedidos}
+          // @ts-ignore
+          onDelete={handleDelete}
+          onNew={handleNewClick}
+        />
+        <Modal
+          isOpen={isDeleteModalOpen}
+          title="Confirmar Eliminación"
+          message={`¿Estás seguro de que deseas eliminar la Materia Prima ${productosTerminadosToDelete?.id}?`}
+          onConfirm={async () => {
+            try {
+              if (productosTerminadosToDelete) {
+                await deleteProductosTerminados(productosTerminadosToDelete.id);
+                closeDeleteModal();
+                setIsDeleteSuccess(true);
+                loadProductosTerminados();
+              }
+            } catch (error) {
+              console.error("Error al eliminar el Pedido:", error);
             }
-          } catch (error) {
-            console.error("Error al eliminar el Pedido:", error);
-          }
-        }}
-        onCancel={closeDeleteModal}
-         // @ts-ignore
-        onUpdate={handleUpdateClick}
-        showUpdateButton={false}
-        showConfirmButton={true} // Configura según tus necesidades
-        
-      />
-      <SuccessModal
-        isOpen={isDeleteSuccess}
-        onClose={() => setIsDeleteSuccess(false)}
-        message="El pedido se ha eliminado correctamente."
-        buttonText="Aceptar"
-      />
+          }}
+          onCancel={closeDeleteModal}
+          // @ts-ignore
+          onUpdate={handleUpdateClick}
+          showUpdateButton={false}
+          showConfirmButton={true} // Configura según tus necesidades
+        />
+        <SuccessModal
+          isOpen={isDeleteSuccess}
+          onClose={() => setIsDeleteSuccess(false)}
+          message="El pedido se ha eliminado correctamente."
+          buttonText="Aceptar"
+        />
 
-<Modal
-        isOpen={isFormVisible}
-        title={selectedProductosTerminados ? "Editar Pedido" : "Nueva Pedido"}
-        onCancel={() => {
-          setIsFormVisible(false);
-          setSelectedProductosTerminados(null); 
-        }}
-        showCancelButton={true}
-        showConfirmButton={false}
-        showUpdateButton={false}
-         // @ts-ignore
-        onConfirm={handleCreateOrUpdatePedidos}
-      >
-      <DynamicForm
-        // @ts-ignore
-        formProps={productosTerminadosProps}
-        onSubmit={handleCreateOrUpdatePedidos}
-        showCreateButton={!selectedProductosTerminados}
-        showUpdateButton={!!selectedProductosTerminados}
-        initialFormData={selectedProductosTerminados}
-         // @ts-ignore
-        onUpdateClick={handleUpdateClick} // Pasa la función handleUpdateClick al DynamicForm
-        columns={2}
-     
-      />
-      </Modal>
+        <Modal
+          isOpen={isFormVisible}
+          title={selectedProductosTerminados ? "Editar Pedido" : "Nueva Pedido"}
+          onCancel={() => {
+            setIsFormVisible(false);
+            setSelectedProductosTerminados(null);
+          }}
+          showCancelButton={true}
+          showConfirmButton={false}
+          showUpdateButton={false}
+          // @ts-ignore
+          onConfirm={handleCreateOrUpdatePedidos}
+        >
+          <DynamicForm
+            // @ts-ignore
+            formProps={productosTerminadosProps}
+            onSubmit={handleCreateOrUpdatePedidos}
+            showCreateButton={!selectedProductosTerminados}
+            showUpdateButton={!!selectedProductosTerminados}
+            initialFormData={selectedProductosTerminados}
+            // @ts-ignore
+            onUpdateClick={handleUpdateClick} // Pasa la función handleUpdateClick al DynamicForm
+            columns={2}
+          />
+        </Modal>
+      </div>
     </div>
   );
 }

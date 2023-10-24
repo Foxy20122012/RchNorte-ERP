@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useEffect, useState } from "react";
 import { Pedidos } from "@prisma/client";
 import DataTable from "@/components/DataTable";
@@ -9,8 +9,9 @@ import SuccessModal from "@/components/SuccessModal";
 import { transformPedidosToRows } from "@/models/pedidosModel";
 import DynamicForm from "@/components/DynamicForm";
 import pedidosProps from "@/models/pedidosProps";
-import useHasMounted from '@/hooks/useHasMounted';
-import Loadig from '@/components/Loading';
+import useHasMounted from "@/hooks/useHasMounted";
+import Loadig from "@/components/Loading";
+import BtnAppBar from "@/components/appBar";
 
 const columns = (Object.keys(pedidosColumns) as (keyof Pedidos)[]).map(
   (key) => ({ key, label: pedidosColumns[key] })
@@ -95,77 +96,78 @@ function PedidosPage() {
 
   const hasMounted = useHasMounted();
   if (!hasMounted) {
-    return<Loadig />;
+    return <Loadig />;
   }
 
   return (
     <div>
-      <DataTable
-        title={"Pedidos"}
-         // @ts-ignore
-        data={rowsPedidos}
-        columns={columns}
-        onEdit={handleEditPedidos}
-         // @ts-ignore
-        onDelete={handleDelete}
-        onNew={handleNewClick}
-      />
-      <Modal
-        isOpen={isDeleteModalOpen}
-        title="Confirmar Eliminación"
-        message={`¿Estás seguro de que deseas eliminar la Materia Prima ${pedidosToDelete?.cliente_id}?`}
-        onConfirm={async () => {
-          try {
-            if (pedidosToDelete) {
-              await deletePedidos(pedidosToDelete.id);
-              closeDeleteModal();
-              setIsDeleteSuccess(true);
-              loadPedidos();
+      <BtnAppBar />
+      <div className="ml-10">
+        <DataTable
+          title={"Pedidos"}
+          // @ts-ignore
+          data={rowsPedidos}
+          columns={columns}
+          onEdit={handleEditPedidos}
+          // @ts-ignore
+          onDelete={handleDelete}
+          onNew={handleNewClick}
+        />
+        <Modal
+          isOpen={isDeleteModalOpen}
+          title="Confirmar Eliminación"
+          message={`¿Estás seguro de que deseas eliminar la Materia Prima ${pedidosToDelete?.cliente_id}?`}
+          onConfirm={async () => {
+            try {
+              if (pedidosToDelete) {
+                await deletePedidos(pedidosToDelete.id);
+                closeDeleteModal();
+                setIsDeleteSuccess(true);
+                loadPedidos();
+              }
+            } catch (error) {
+              console.error("Error al eliminar el Pedido:", error);
             }
-          } catch (error) {
-            console.error("Error al eliminar el Pedido:", error);
-          }
-        }}
-        onCancel={closeDeleteModal}
-         // @ts-ignore
-        onUpdate={handleUpdateClick}
-        showUpdateButton={false}
-        showConfirmButton={true} // Configura según tus necesidades
-        
-      />
-      <SuccessModal
-        isOpen={isDeleteSuccess}
-        onClose={() => setIsDeleteSuccess(false)}
-        message="El pedido se ha eliminado correctamente."
-        buttonText="Aceptar"
-      />
+          }}
+          onCancel={closeDeleteModal}
+          // @ts-ignore
+          onUpdate={handleUpdateClick}
+          showUpdateButton={false}
+          showConfirmButton={true} // Configura según tus necesidades
+        />
+        <SuccessModal
+          isOpen={isDeleteSuccess}
+          onClose={() => setIsDeleteSuccess(false)}
+          message="El pedido se ha eliminado correctamente."
+          buttonText="Aceptar"
+        />
 
-<Modal
-        isOpen={isFormVisible}
-        title={selectedPedidos ? "Editar Pedido" : "Nueva Pedido"}
-        onCancel={() => {
-          setIsFormVisible(false);
-          setSelectedPedidos(null); 
-        }}
-        showCancelButton={true}
-        showConfirmButton={false}
-        showUpdateButton={false}
-         // @ts-ignore
-        onConfirm={handleCreateOrUpdatePedidos}
-      >
-      <DynamicForm
-      // @ts-ignore
-        formProps={pedidosProps}
-        onSubmit={handleCreateOrUpdatePedidos}
-        showCreateButton={!selectedPedidos}
-        showUpdateButton={!!selectedPedidos}
-        initialFormData={selectedPedidos}
-         // @ts-ignore
-        onUpdateClick={handleUpdateClick} // Pasa la función handleUpdateClick al DynamicForm
-        columns={2}
-     
-      />
-      </Modal>
+        <Modal
+          isOpen={isFormVisible}
+          title={selectedPedidos ? "Editar Pedido" : "Nueva Pedido"}
+          onCancel={() => {
+            setIsFormVisible(false);
+            setSelectedPedidos(null);
+          }}
+          showCancelButton={true}
+          showConfirmButton={false}
+          showUpdateButton={false}
+          // @ts-ignore
+          onConfirm={handleCreateOrUpdatePedidos}
+        >
+          <DynamicForm
+            // @ts-ignore
+            formProps={pedidosProps}
+            onSubmit={handleCreateOrUpdatePedidos}
+            showCreateButton={!selectedPedidos}
+            showUpdateButton={!!selectedPedidos}
+            initialFormData={selectedPedidos}
+            // @ts-ignore
+            onUpdateClick={handleUpdateClick} // Pasa la función handleUpdateClick al DynamicForm
+            columns={2}
+          />
+        </Modal>
+      </div>
     </div>
   );
 }

@@ -12,6 +12,7 @@ import DynamicForm from "@/components/DynamicForm";
 import empleadosProps from "@/models/empleadosProps";
 import useHasMounted from "@/hooks/useHasMounted";
 import Loading from "@/components/Loading";
+import BtnAppBar from "@/components/appBar";
 
 import { FaHeart } from "react-icons/fa";
 
@@ -103,74 +104,77 @@ function EmpleadosPage() {
   }
   return (
     <div>
-      <div>
-        <DataTable
-          title={"Empleados"}
-          // @ts-ignore
-          data={rowsEmpleados}
-          columns={columns}
-          // @ts-ignore
-          onEdit={handleEditCliente}
-          // @ts-ignore
-          onDelete={handleDelete}
-          onNew={handleNewClick}
-        />
-        <Modal
-          isOpen={isDeleteModalOpen}
-          title="Confirmar Eliminación"
-          message={`¿Estás seguro de que deseas eliminar al Empleado ${empleadosDelete?.nombre}?`}
-          onConfirm={async () => {
-            try {
-              if (empleadosDelete) {
-                await deleteEmpleado(empleadosDelete.id);
-                closeDeleteModal();
-                setIsDeleteSuccess(true);
-                loadEmpleados();
-              }
-            } catch (error) {
-              console.error("Error al eliminar el Empleado:", error);
-            }
-          }}
-          onCancel={closeDeleteModal}
-          // @ts-ignore
-          onUpdate={handleUpdateClick}
-          showUpdateButton={false}
-          showConfirmButton={true} // Configura según tus necesidades
-        />
-        <SuccessModal
-          isOpen={isDeleteSuccess}
-          onClose={() => setIsDeleteSuccess(false)}
-          message="El empleado se ha eliminado correctamente."
-          buttonText="Aceptar"
-        />
-
-        <Modal
-          isOpen={isFormVisible}
-          title={selectedEmpleado ? "Editar Empleado" : "Nuevo Empleado"}
-          onCancel={() => {
-            setIsFormVisible(false);
-            setSelectedEmpleado(null);
-          }}
-          showCancelButton={true}
-          showConfirmButton={false}
-          showUpdateButton={false}
-          // @ts-ignore
-          onConfirm={handleCreateOrUpdateCliente}
-        >
-          <DynamicForm
+      <BtnAppBar />
+      <div className="ml-10">
+        <div>
+          <DataTable
+            title={"Empleados"}
             // @ts-ignore
-            formProps={empleadosProps}
-            onSubmit={handleCreateOrUpdateCliente}
-            showCreateButton={!selectedEmpleado}
-            showUpdateButton={!!selectedEmpleado}
-            initialFormData={selectedEmpleado}
+            data={rowsEmpleados}
+            columns={columns}
             // @ts-ignore
-            onUpdateClick={handleUpdateClick} // Pasa la función handleUpdateClick al DynamicForm
-            columns={1}
+            onEdit={handleEditCliente}
+            // @ts-ignore
+            onDelete={handleDelete}
+            onNew={handleNewClick}
           />
-        </Modal>
+          <Modal
+            isOpen={isDeleteModalOpen}
+            title="Confirmar Eliminación"
+            message={`¿Estás seguro de que deseas eliminar al Empleado ${empleadosDelete?.nombre}?`}
+            onConfirm={async () => {
+              try {
+                if (empleadosDelete) {
+                  await deleteEmpleado(empleadosDelete.id);
+                  closeDeleteModal();
+                  setIsDeleteSuccess(true);
+                  loadEmpleados();
+                }
+              } catch (error) {
+                console.error("Error al eliminar el Empleado:", error);
+              }
+            }}
+            onCancel={closeDeleteModal}
+            // @ts-ignore
+            onUpdate={handleUpdateClick}
+            showUpdateButton={false}
+            showConfirmButton={true} // Configura según tus necesidades
+          />
+          <SuccessModal
+            isOpen={isDeleteSuccess}
+            onClose={() => setIsDeleteSuccess(false)}
+            message="El empleado se ha eliminado correctamente."
+            buttonText="Aceptar"
+          />
 
-        <div className="flex justify-center items-center"></div>
+          <Modal
+            isOpen={isFormVisible}
+            title={selectedEmpleado ? "Editar Empleado" : "Nuevo Empleado"}
+            onCancel={() => {
+              setIsFormVisible(false);
+              setSelectedEmpleado(null);
+            }}
+            showCancelButton={true}
+            showConfirmButton={false}
+            showUpdateButton={false}
+            // @ts-ignore
+            onConfirm={handleCreateOrUpdateCliente}
+          >
+            <DynamicForm
+              // @ts-ignore
+              formProps={empleadosProps}
+              onSubmit={handleCreateOrUpdateCliente}
+              showCreateButton={!selectedEmpleado}
+              showUpdateButton={!!selectedEmpleado}
+              initialFormData={selectedEmpleado}
+              // @ts-ignore
+              onUpdateClick={handleUpdateClick} // Pasa la función handleUpdateClick al DynamicForm
+              columns={1}
+            />
+          </Modal>
+
+          <div className="flex justify-center items-center"></div>
+        </div>
       </div>
     </div>
   );

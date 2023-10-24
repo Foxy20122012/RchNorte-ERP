@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useEffect, useState } from "react";
 import { MateriasPrimas } from "@prisma/client";
 import DataTable from "@/components/DataTable";
@@ -11,10 +11,11 @@ import DynamicForm from "@/components/DynamicForm";
 import materiasPrimasProps from "@/models/materiasPrimasProps";
 import useHasMounted from "@/hooks/useHasMounted";
 import Loading from "@/components/Loading";
+import BtnAppBar from "@/components/appBar";
 
-const columns = (Object.keys(materiasPrimasColumns) as (keyof MateriasPrimas)[]).map(
-  (key) => ({ key, label: materiasPrimasColumns[key] })
-);
+const columns = (
+  Object.keys(materiasPrimasColumns) as (keyof MateriasPrimas)[]
+).map((key) => ({ key, label: materiasPrimasColumns[key] }));
 
 function MateriasPrimasPage() {
   const {
@@ -28,7 +29,8 @@ function MateriasPrimasPage() {
   } = useMateriasPrimas();
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
-  const [MateriasPrimasToDelete, setMateriasPrimasToDelete] = useState<MateriasPrimas | null>(null);
+  const [MateriasPrimasToDelete, setMateriasPrimasToDelete] =
+    useState<MateriasPrimas | null>(null);
   const [isDeleteSuccess, setIsDeleteSuccess] = useState<boolean>(false);
   const [isFormVisible, setIsFormVisible] = useState(false);
 
@@ -99,72 +101,79 @@ function MateriasPrimasPage() {
   }
 
   return (
-    <div> 
-      <DataTable  
-        title={"Materias Primas"}   
-        // @ts-ignore
-        data={rowsMateriasPrimas}  
-        columns={columns}
-         // @ts-ignore
-        onEdit={handleEditMateriasPrimas}
-         // @ts-ignore
-        onDelete={handleDelete}
-        onNew={handleNewClick} 
-      />
-      <Modal
-        isOpen={isDeleteModalOpen} 
-        title="Confirmar Eliminación"
-        message={`¿Estás seguro de que deseas eliminar la Materia Prima ${MateriasPrimasToDelete?.nombre}?`}
-        onConfirm={async () => {
-          try {
-            if (MateriasPrimasToDelete) {
-              await deleteMateriasPrimas(MateriasPrimasToDelete.id);
-              closeDeleteModal();
-              setIsDeleteSuccess(true);
-              loadMateriasPrimas();
-            }
-          } catch (error) {
-            console.error("Error al eliminar la materia prima:", error);
-          }
-        }}
-        onCancel={closeDeleteModal}
-         // @ts-ignore
-        onUpdate={handleUpdateClick}
-        showUpdateButton={false}
-        showConfirmButton={true} 
-      />
-      <SuccessModal
-        isOpen={isDeleteSuccess}
-        onClose={() => setIsDeleteSuccess(false)}
-        message="La Materia Prima se ha eliminado correctamente."
-        buttonText="Aceptar"
-      />
-
-      <Modal
-        isOpen={isFormVisible}
-        title={selectedMateriasPrimas ? "Editar Materia Prima" : "Nueva Materia Prima"}
-        onCancel={() => {
-          setIsFormVisible(false);
-          setSelectedMateriasPrimas(null);
-        }}
-        showCancelButton={true}
-        showConfirmButton={false}
-        showUpdateButton={false}
-         // @ts-ignore
-        onConfirm={handleCreateOrUpdateMateriasPrimas}
-      >
-        <DynamicForm
-        // @ts-ignore
-          formProps={materiasPrimasProps}
-          onSubmit={handleCreateOrUpdateMateriasPrimas}
-          showCreateButton={!selectedMateriasPrimas}
-          showUpdateButton={!!selectedMateriasPrimas}
-          initialFormData={selectedMateriasPrimas}
-           // @ts-ignore
-          onUpdateClick={handleUpdateClick} 
-          columns={2}
+    <div>
+      <BtnAppBar/>
+      <div>
+        <DataTable
+          title={"Materias Primas"}
+          // @ts-ignore
+          data={rowsMateriasPrimas}
+          columns={columns}
+          // @ts-ignore
+          onEdit={handleEditMateriasPrimas}
+          // @ts-ignore
+          onDelete={handleDelete}
+          onNew={handleNewClick}
         />
-      </Modal>
+        <Modal
+          isOpen={isDeleteModalOpen}
+          title="Confirmar Eliminación"
+          message={`¿Estás seguro de que deseas eliminar la Materia Prima ${MateriasPrimasToDelete?.nombre}?`}
+          onConfirm={async () => {
+            try {
+              if (MateriasPrimasToDelete) {
+                await deleteMateriasPrimas(MateriasPrimasToDelete.id);
+                closeDeleteModal();
+                setIsDeleteSuccess(true);
+                loadMateriasPrimas();
+              }
+            } catch (error) {
+              console.error("Error al eliminar la materia prima:", error);
+            }
+          }}
+          onCancel={closeDeleteModal}
+          // @ts-ignore
+          onUpdate={handleUpdateClick}
+          showUpdateButton={false}
+          showConfirmButton={true}
+        />
+        <SuccessModal
+          isOpen={isDeleteSuccess}
+          onClose={() => setIsDeleteSuccess(false)}
+          message="La Materia Prima se ha eliminado correctamente."
+          buttonText="Aceptar"
+        />
+
+        <Modal
+          isOpen={isFormVisible}
+          title={
+            selectedMateriasPrimas
+              ? "Editar Materia Prima"
+              : "Nueva Materia Prima"
+          }
+          onCancel={() => {
+            setIsFormVisible(false);
+            setSelectedMateriasPrimas(null);
+          }}
+          showCancelButton={true}
+          showConfirmButton={false}
+          showUpdateButton={false}
+          // @ts-ignore
+          onConfirm={handleCreateOrUpdateMateriasPrimas}
+        >
+          <DynamicForm
+            // @ts-ignore
+            formProps={materiasPrimasProps}
+            onSubmit={handleCreateOrUpdateMateriasPrimas}
+            showCreateButton={!selectedMateriasPrimas}
+            showUpdateButton={!!selectedMateriasPrimas}
+            initialFormData={selectedMateriasPrimas}
+            // @ts-ignore
+            onUpdateClick={handleUpdateClick}
+            columns={2}
+          />
+        </Modal>
+      </div>
     </div>
   );
 }

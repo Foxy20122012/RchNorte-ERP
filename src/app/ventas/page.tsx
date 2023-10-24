@@ -14,6 +14,7 @@ import Loadig from "@/components/Loading";
 import CustomIcon from "@/components/CustomIcons";
 import SalesLineChart from "@/components/SalesLineChart";
 import CustomTabs from "@/components/CustomTabs";
+import BtnAppBar from "@/components/appBar";
 // import tabListVentas from "@/models/tabsListVentas";
 
 const columns = (Object.keys(ventasColumns) as (keyof Ventas)[]).map((key) => ({
@@ -131,72 +132,75 @@ function VentasPage() {
   }
   return (
     <div>
-      <DataTable
-        title={"Registro De Ventas"}
-        // @ts-ignore
-        data={rowsVentas}
-        columns={columns}
-        // @ts-ignore
-        onEdit={handleEditVentas}
-        // @ts-ignore
-        onDelete={handleDelete}
-        onNew={handleNewClick}
-      />
-      <Modal
-        isOpen={isDeleteModalOpen}
-        title="Confirmar Eliminación"
-        message={`¿Estás seguro de que deseas eliminar al cliente ${ventasToDelete?.cliente_id}?`}
-        onConfirm={async () => {
-          try {
-            if (ventasToDelete) {
-              await deleteVentas(ventasToDelete.id);
-              closeDeleteModal();
-              setIsDeleteSuccess(true);
-              loadVentas();
-            }
-          } catch (error) {
-            console.error("Error al eliminar el cliente:", error);
-          }
-        }}
-        onCancel={closeDeleteModal}
-        // @ts-ignore
-        onUpdate={handleUpdateClick}
-        showUpdateButton={false}
-        showConfirmButton={true} // Configura según tus necesidades
-      />
-      <SuccessModal
-        isOpen={isDeleteSuccess}
-        onClose={() => setIsDeleteSuccess(false)}
-        message="El registro de la Venta ha sido eliminado correctamente."
-        buttonText="Aceptar"
-      />
-      <Modal
-        isOpen={isFormVisible}
-        title={selectedVentas ? "Editar Venta" : "Registrar Nueva Venta"}
-        onCancel={() => {
-          setIsFormVisible(false);
-          setSelectedVentas(null);
-        }}
-        showCancelButton={true}
-        showConfirmButton={false}
-        showUpdateButton={false}
-        // @ts-ignore
-        onConfirm={handleCreateOrUpdateVentas}
-      >
-        <DynamicForm
-        // @ts-ignore
-          formProps={ventasProps}
-          onSubmit={handleCreateOrUpdateVentas}
-          showCreateButton={!selectedVentas}
-          showUpdateButton={!!selectedVentas}
-          initialFormData={selectedVentas}
+      <BtnAppBar />
+      <div>
+        <DataTable
+          title={"Registro De Ventas"}
           // @ts-ignore
-          onUpdateClick={handleUpdateClick} // Pasa la función handleUpdateClick al DynamicForm
-          columns={1}
+          data={rowsVentas}
+          columns={columns}
+          // @ts-ignore
+          onEdit={handleEditVentas}
+          // @ts-ignore
+          onDelete={handleDelete}
+          onNew={handleNewClick}
         />
-      </Modal>
+        <Modal
+          isOpen={isDeleteModalOpen}
+          title="Confirmar Eliminación"
+          message={`¿Estás seguro de que deseas eliminar al cliente ${ventasToDelete?.cliente_id}?`}
+          onConfirm={async () => {
+            try {
+              if (ventasToDelete) {
+                await deleteVentas(ventasToDelete.id);
+                closeDeleteModal();
+                setIsDeleteSuccess(true);
+                loadVentas();
+              }
+            } catch (error) {
+              console.error("Error al eliminar el cliente:", error);
+            }
+          }}
+          onCancel={closeDeleteModal}
+          // @ts-ignore
+          onUpdate={handleUpdateClick}
+          showUpdateButton={false}
+          showConfirmButton={true} // Configura según tus necesidades
+        />
+        <SuccessModal
+          isOpen={isDeleteSuccess}
+          onClose={() => setIsDeleteSuccess(false)}
+          message="El registro de la Venta ha sido eliminado correctamente."
+          buttonText="Aceptar"
+        />
+        <Modal
+          isOpen={isFormVisible}
+          title={selectedVentas ? "Editar Venta" : "Registrar Nueva Venta"}
+          onCancel={() => {
+            setIsFormVisible(false);
+            setSelectedVentas(null);
+          }}
+          showCancelButton={true}
+          showConfirmButton={false}
+          showUpdateButton={false}
+          // @ts-ignore
+          onConfirm={handleCreateOrUpdateVentas}
+        >
+          <DynamicForm
+            // @ts-ignore
+            formProps={ventasProps}
+            onSubmit={handleCreateOrUpdateVentas}
+            showCreateButton={!selectedVentas}
+            showUpdateButton={!!selectedVentas}
+            initialFormData={selectedVentas}
+            // @ts-ignore
+            onUpdateClick={handleUpdateClick} // Pasa la función handleUpdateClick al DynamicForm
+            columns={1}
+          />
+        </Modal>
 
-      <CustomTabs tabs={tabListVentas} />
+        <CustomTabs tabs={tabListVentas} />
+      </div>
     </div>
   );
 }

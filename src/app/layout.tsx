@@ -19,7 +19,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <div className="flex  md:my-12 md:ml-4">
           <AllContexts>
-            <BtnAppBar />
+            {/* <BtnAppBar /> */}
             {children}
           </AllContexts>
         </div>

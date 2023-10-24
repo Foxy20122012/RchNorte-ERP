@@ -14,8 +14,8 @@ import Loading from "@/components/Loading";
 import CountTag from "@/components/CountTag";
 import { FaHeart } from "react-icons/fa";
 import CustomTabs from "@/components/CustomTabs";
-import tabContent from "@/models/tabsListClientes"
-
+import tabContent from "@/models/tabsListClientes";
+import BtnAppBar from "@/components/appBar";
 
 const columns = (Object.keys(clientesColumns) as (keyof Clientes)[]).map(
   (key) => ({ key, label: clientesColumns[key] })
@@ -97,89 +97,90 @@ function ClientesPage() {
     }
   };
 
-  
-
   const hasMounted = useHasMounted();
   if (!hasMounted) {
     return <Loading />; //<Loadig />
   }
   return (
     <div>
+      <BtnAppBar />
       <div>
-        <DataTable
-          title={"Clientes"}
-          // @ts-ignore
-          data={rowsClientes}
-          columns={columns}
-          onEdit={handleEditCliente}
-          onDelete={handleDelete}
-          onNew={handleNewClick}
-        />
-        <Modal
-          isOpen={isDeleteModalOpen}
-          title="Confirmar Eliminación"
-          message={`¿Estás seguro de que deseas eliminar al cliente ${clientToDelete?.nombre}?`}
-          onConfirm={async () => {
-            try {
-              if (clientToDelete) {
-                await deleteCliente(clientToDelete.id);
-                closeDeleteModal();
-                setIsDeleteSuccess(true);
-                loadClientes();
-              }
-            } catch (error) {
-              console.error("Error al eliminar el cliente:", error);
-            }
-          }}
-          onCancel={closeDeleteModal}
-          // @ts-ignore
-          onUpdate={handleUpdateClick}
-          showUpdateButton={false}
-          showConfirmButton={true} // Configura según tus necesidades
-        />
-        <SuccessModal
-          isOpen={isDeleteSuccess}
-          onClose={() => setIsDeleteSuccess(false)}
-          message="El cliente se ha eliminado correctamente."
-          buttonText="Aceptar"
-        />
-
-        <Modal
-          isOpen={isFormVisible}
-          title={selectedCliente ? "Editar Cliente" : "Nuevo Cliente"}
-          onCancel={() => {
-            setIsFormVisible(false);
-            setSelectedCliente(null);
-          }}
-          showCancelButton={true}
-          showConfirmButton={false}
-          showUpdateButton={false}
-          // @ts-ignore
-          onConfirm={handleCreateOrUpdateCliente}
-        >
-          <DynamicForm
-          // @ts-ignore
-            formProps={clientesProps}
-            onSubmit={handleCreateOrUpdateCliente}
-            showCreateButton={!selectedCliente}
-            showUpdateButton={!!selectedCliente}
-            initialFormData={selectedCliente}
+        <div className="ml-10">
+          <DataTable
+            title={"Clientes"}
             // @ts-ignore
-            onUpdateClick={handleUpdateClick} // Pasa la función handleUpdateClick al DynamicForm
-            columns={1}
+            data={rowsClientes}
+            columns={columns}
+            onEdit={handleEditCliente}
+            onDelete={handleDelete}
+            onNew={handleNewClick}
           />
-        </Modal>
+          <Modal
+            isOpen={isDeleteModalOpen}
+            title="Confirmar Eliminación"
+            message={`¿Estás seguro de que deseas eliminar al cliente ${clientToDelete?.nombre}?`}
+            onConfirm={async () => {
+              try {
+                if (clientToDelete) {
+                  await deleteCliente(clientToDelete.id);
+                  closeDeleteModal();
+                  setIsDeleteSuccess(true);
+                  loadClientes();
+                }
+              } catch (error) {
+                console.error("Error al eliminar el cliente:", error);
+              }
+            }}
+            onCancel={closeDeleteModal}
+            // @ts-ignore
+            onUpdate={handleUpdateClick}
+            showUpdateButton={false}
+            showConfirmButton={true} // Configura según tus necesidades
+          />
+          <SuccessModal
+            isOpen={isDeleteSuccess}
+            onClose={() => setIsDeleteSuccess(false)}
+            message="El cliente se ha eliminado correctamente."
+            buttonText="Aceptar"
+          />
 
-        <CountTag
-          datos="Ventas totales"
-          icon={<FaHeart />} // Utiliza el ícono de un corazón de React Icons
-          value={12500}
-          theme="green"
-          title="Resumen de ventas"
-        />
+          <Modal
+            isOpen={isFormVisible}
+            title={selectedCliente ? "Editar Cliente" : "Nuevo Cliente"}
+            onCancel={() => {
+              setIsFormVisible(false);
+              setSelectedCliente(null);
+            }}
+            showCancelButton={true}
+            showConfirmButton={false}
+            showUpdateButton={false}
+            // @ts-ignore
+            onConfirm={handleCreateOrUpdateCliente}
+          >
+            <DynamicForm
+              // @ts-ignore
+              formProps={clientesProps}
+              onSubmit={handleCreateOrUpdateCliente}
+              showCreateButton={!selectedCliente}
+              showUpdateButton={!!selectedCliente}
+              initialFormData={selectedCliente}
+              // @ts-ignore
+              onUpdateClick={handleUpdateClick} // Pasa la función handleUpdateClick al DynamicForm
+              columns={1}
+            />
+          </Modal>
 
-        <div className="flex justify-center items-center">
-          <CustomTabs tabs={tabContent} />
+          <CountTag
+            datos="Ventas totales"
+            icon={<FaHeart />} // Utiliza el ícono de un corazón de React Icons
+            value={12500}
+            theme="green"
+            title="Resumen de ventas"
+          />
+
+          <div className="flex justify-center items-center">
+            <CustomTabs tabs={tabContent} />
+          </div>
         </div>
       </div>
     </div>

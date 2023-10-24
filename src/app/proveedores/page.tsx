@@ -12,9 +12,9 @@ import Modal from "@/components/Modal";
 import SuccessModal from "@/components/SuccessModal";
 import DynamicForm from "@/components/DynamicForm";
 import proveedoresProps from "@/models/proveedoresProps";
-import useHasMounted from '@/hooks/useHasMounted';
-import Loadig from '@/components/Loading';
-
+import useHasMounted from "@/hooks/useHasMounted";
+import Loadig from "@/components/Loading";
+import BtnAppBar from "@/components/appBar";
 
 const columns = (Object.keys(proveedoresColumns) as (keyof Proveedores)[]).map(
   (key) => ({ key, label: proveedoresColumns[key] })
@@ -36,9 +36,8 @@ function Proveedores() {
   }, []);
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
-  const [proveedorToDelete, setProveedoresToDelete] = useState<Proveedores | null>(
-    null
-  );
+  const [proveedorToDelete, setProveedoresToDelete] =
+    useState<Proveedores | null>(null);
   const [isDeleteSuccess, setIsDeleteSuccess] = useState<boolean>(false);
   const [isFormVisible, setIsFormVisible] = useState(false);
 
@@ -101,73 +100,75 @@ function Proveedores() {
 
   const hasMounted = useHasMounted();
   if (!hasMounted) {
-    return<Loadig />;
+    return <Loadig />;
   }
   return (
     <div>
-      <DataTable
-        title={"Proveedores"}
-         // @ts-ignore
-        data={rowsProveedores}
-        columns={columns}
-        onEdit={handleEditProveedores}
-         // @ts-ignore
-        onDelete={handleDelete}
-        onNew={handleNewClick}
-      />
-      <Modal
-        isOpen={isDeleteModalOpen}
-        title="Confirmar Eliminación"
-        message={`¿Estás seguro de que deseas eliminar al cliente ${proveedorToDelete?.nombre}?`}
-        onConfirm={async () => {
-          try {
-            if (proveedorToDelete) {
-              await deleteProveedores(proveedorToDelete.id);
-              closeDeleteModal();
-              setIsDeleteSuccess(true);
-              loadProveedores();
-            }
-          } catch (error) {
-            console.error("Error al eliminar el cliente:", error);
-          }
-        }}
-        onCancel={closeDeleteModal}
-         // @ts-ignore
-        onUpdate={handleUpdateClick}
-        showUpdateButton={false}
-        showConfirmButton={true} // Configura según tus necesidades
-      />
-      <SuccessModal
-        isOpen={isDeleteSuccess}
-        onClose={() => setIsDeleteSuccess(false)}
-        message="El Proveedor se ha eliminado correctamente."
-        buttonText="Aceptar"
-      />
-      <Modal
-        isOpen={isFormVisible}
-        title={selectedProveedores ? "Editar Proveedor" : "Nueva Proveedor"}
-        onCancel={() => {
-          setIsFormVisible(false);
-          setSelectedProveedores(null);
-        }}
-        showCancelButton={true}
-        showConfirmButton={false}
-        showUpdateButton={false}
-         // @ts-ignore
-        onConfirm={handleCreateOrUpdateProveedores}
-      >
-        <DynamicForm
-        // @ts-ignore
-          formProps={proveedoresProps}
-          onSubmit={handleCreateOrUpdateProveedores}
-          showCreateButton={!selectedProveedores}
-          showUpdateButton={!!selectedProveedores}
-          initialFormData={selectedProveedores} // @ts-ignore
-          onUpdateClick={handleUpdateClick} // Pasa la función handleUpdateClick al DynamicForm
-          columns={1}
-          
+      <BtnAppBar />
+      <div className="ml-10">
+        <DataTable
+          title={"Proveedores"}
+          // @ts-ignore
+          data={rowsProveedores}
+          columns={columns}
+          onEdit={handleEditProveedores}
+          // @ts-ignore
+          onDelete={handleDelete}
+          onNew={handleNewClick}
         />
-      </Modal>
+        <Modal
+          isOpen={isDeleteModalOpen}
+          title="Confirmar Eliminación"
+          message={`¿Estás seguro de que deseas eliminar al cliente ${proveedorToDelete?.nombre}?`}
+          onConfirm={async () => {
+            try {
+              if (proveedorToDelete) {
+                await deleteProveedores(proveedorToDelete.id);
+                closeDeleteModal();
+                setIsDeleteSuccess(true);
+                loadProveedores();
+              }
+            } catch (error) {
+              console.error("Error al eliminar el cliente:", error);
+            }
+          }}
+          onCancel={closeDeleteModal}
+          // @ts-ignore
+          onUpdate={handleUpdateClick}
+          showUpdateButton={false}
+          showConfirmButton={true} // Configura según tus necesidades
+        />
+        <SuccessModal
+          isOpen={isDeleteSuccess}
+          onClose={() => setIsDeleteSuccess(false)}
+          message="El Proveedor se ha eliminado correctamente."
+          buttonText="Aceptar"
+        />
+        <Modal
+          isOpen={isFormVisible}
+          title={selectedProveedores ? "Editar Proveedor" : "Nueva Proveedor"}
+          onCancel={() => {
+            setIsFormVisible(false);
+            setSelectedProveedores(null);
+          }}
+          showCancelButton={true}
+          showConfirmButton={false}
+          showUpdateButton={false}
+          // @ts-ignore
+          onConfirm={handleCreateOrUpdateProveedores}
+        >
+          <DynamicForm
+            // @ts-ignore
+            formProps={proveedoresProps}
+            onSubmit={handleCreateOrUpdateProveedores}
+            showCreateButton={!selectedProveedores}
+            showUpdateButton={!!selectedProveedores}
+            initialFormData={selectedProveedores} // @ts-ignore
+            onUpdateClick={handleUpdateClick} // Pasa la función handleUpdateClick al DynamicForm
+            columns={1}
+          />
+        </Modal>
+      </div>
     </div>
   );
 }

@@ -6,6 +6,7 @@ import { useNotes } from "@/context/NoteContext";
 import { useEffect } from "react";
 import useHasMounted from "@/hooks/useHasMounted";
 import Loading from "@/components/Loading";
+import BtnAppBar from "@/components/appBar";
 
 function HomePage() {
   const { notes, loadNotes } = useNotes();
@@ -19,13 +20,16 @@ function HomePage() {
     return <Loading />; //<Loadig />
   }
   return (
-    <div className="flex justify-center ml-96">
-      <div className="flex items-center justify-center h-screen">
-        <div className="block">
-          <NoteForm  />
-          {notes.map((note) => (
-            <NoteCard note={note} key={note.id} />
-          ))}
+    <div>
+      <BtnAppBar />
+      <div className="flex justify-center ml-96">
+        <div className="flex items-center justify-center h-screen">
+          <div className="block">
+            <NoteForm />
+            {notes.map((note) => (
+              <NoteCard note={note} key={note.id} />
+            ))}
+          </div>
         </div>
       </div>
     </div>
