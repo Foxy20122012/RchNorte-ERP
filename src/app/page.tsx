@@ -1,9 +1,13 @@
 "use client";
 
 import router from "next/router";
-
+import {  useSession } from "next-auth/react"
 
 export default function Home() {
+
+  const {data: session, status} = useSession()
+
+  console.log(session, status)
   return (
     <main className="flex flex-col items-center justify-between bg-gray-100 p-4 sm:p-8 md:p-16 lg:p-24 xl:p-32">
       <h1 className="mb-3 text-center text-4xl font-bold text-blue-600 md:text-5xl">

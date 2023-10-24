@@ -1,5 +1,5 @@
 // AllContexts.js
-import React from 'react';
+import React from "react";
 import { NotesProvider } from "@/context/NoteContext";
 import { VentasProvider } from "@/context/VentasContext";
 import { ClientesProvider } from "@/context/ClientesContext";
@@ -10,8 +10,8 @@ import { ProductosTerminadosProvider } from "@/context/ProductosTerminadosContex
 import { ProveedoresProvider } from "@/context/ProveedoresContext";
 import { SalidasMateriasPrimasProvider } from "@/context/SalidasMateriasPrimasContext";
 import { TransaccionesFinancierasProvider } from "@/context/TransaccionesFinancierasContext";
-import { EmpleadosProvider } from './EmpleadosContext';
-
+import { EmpleadosProvider } from "./EmpleadosContext";
+import { SessionProvider } from "next-auth/react";
 
 const AllContexts = ({ children }) => (
   <NotesProvider>
@@ -24,8 +24,8 @@ const AllContexts = ({ children }) => (
                 <ProveedoresProvider>
                   <SalidasMateriasPrimasProvider>
                     <TransaccionesFinancierasProvider>
-                    <EmpleadosProvider>
-                      {children}
+                      <EmpleadosProvider>
+                        <SessionProvider>{children}</SessionProvider>
                       </EmpleadosProvider>
                     </TransaccionesFinancierasProvider>
                   </SalidasMateriasPrimasProvider>
