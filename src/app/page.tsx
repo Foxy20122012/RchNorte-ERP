@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <div>
       <BtnAppBar />
-      <main className="flex flex-col items-center justify-between bg-gray-100 p-4 sm:p-8 md:p-16 lg:p-24 xl:p-32 ml-10">
+      <main className="flex flex-col items-center justify-between bg-gray-100 p-4 sm:p-8 md:p-16 lg:p-24 xl:p-32 ml-20">
         <h1 className="mb-3 text-center text-4xl font-bold text-blue-600 md:text-5xl">
           Bienvenido al proyecto RchNorte
         </h1>

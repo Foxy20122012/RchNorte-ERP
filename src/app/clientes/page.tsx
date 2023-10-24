@@ -16,6 +16,7 @@ import { FaHeart } from "react-icons/fa";
 import CustomTabs from "@/components/CustomTabs";
 import tabContent from "@/models/tabsListClientes";
 import BtnAppBar from "@/components/appBar";
+import { useSession } from "next-auth/react";
 
 const columns = (Object.keys(clientesColumns) as (keyof Clientes)[]).map(
   (key) => ({ key, label: clientesColumns[key] })
@@ -37,6 +38,8 @@ function ClientesPage() {
   const [isDeleteSuccess, setIsDeleteSuccess] = useState<boolean>(false);
   const [isFormVisible, setIsFormVisible] = useState(false);
   const rowsClientes = transformClientesToRows(clientes);
+  const { data: session, status } = useSession();
+  console.log(session, status);
 
   useEffect(() => {
     loadClientes();

@@ -61,7 +61,7 @@ const Sidebar = () => {
     },
     {
       text: "Cerrar Sesión",
-      link: "",
+      link: "/api/auth/signout",
       icon: <FiArrowLeft className="m-3  text-xl font-bold" />,
     },
   ];

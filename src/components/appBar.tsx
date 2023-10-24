@@ -33,10 +33,10 @@ const MainLayout = () => {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               Servicios RchNorte
             </Typography>
-            <Button color="inherit">
+            {/* <Button color="inherit">
               <BiUserCircle size={24} style={{ marginRight: '16px' }} />
               Login
-            </Button>
+            </Button> */}
           </Toolbar>
         </AppBar>
       </Box>

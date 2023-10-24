@@ -12,6 +12,7 @@ import materiasPrimasProps from "@/models/materiasPrimasProps";
 import useHasMounted from "@/hooks/useHasMounted";
 import Loading from "@/components/Loading";
 import BtnAppBar from "@/components/appBar";
+import { useSession } from "next-auth/react";
 
 const columns = (
   Object.keys(materiasPrimasColumns) as (keyof MateriasPrimas)[]
@@ -33,7 +34,9 @@ function MateriasPrimasPage() {
     useState<MateriasPrimas | null>(null);
   const [isDeleteSuccess, setIsDeleteSuccess] = useState<boolean>(false);
   const [isFormVisible, setIsFormVisible] = useState(false);
-
+  const { data: session, status } = useSession();
+  console.log(session, status);
+  
   useEffect(() => {
     loadMateriasPrimas();
   }, []);
