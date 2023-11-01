@@ -1,11 +1,5 @@
 const clientesProps = [
   {
-    label: "ID",
-    name: "id",
-    type: "number",
-    readOnly: true, // El campo ID generalmente es de solo lectura
-  },
-  {
     label: "Nombre",
     name: "nombre",
     type: "text",
@@ -36,6 +30,17 @@ const clientesProps = [
   {
     label: "Historial de Compras",
     name: "historial_compras",
+    type: "text",
+    required: true,
+  },
+  {
+    label: "nombre_empresa",
+    name: "nombre_empresa",
+    type: "text",
+    required: true,
+  },  {
+    label: "titulo_encargado",
+    name: "titulo_encargado",
     type: "text",
     required: true,
   },

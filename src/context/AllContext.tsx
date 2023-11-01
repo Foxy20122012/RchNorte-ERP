@@ -12,6 +12,7 @@ import { SalidasMateriasPrimasProvider } from "@/context/SalidasMateriasPrimasCo
 import { TransaccionesFinancierasProvider } from "@/context/TransaccionesFinancierasContext";
 import { EmpleadosProvider } from "./EmpleadosContext";
 import { SessionProvider } from "next-auth/react";
+import { ProyectosProvider } from "@/context/ProyectosContext";
 
 const AllContexts = ({ children }) => (
   <NotesProvider>
@@ -25,7 +26,9 @@ const AllContexts = ({ children }) => (
                   <SalidasMateriasPrimasProvider>
                     <TransaccionesFinancierasProvider>
                       <EmpleadosProvider>
-                        <SessionProvider>{children}</SessionProvider>
+                        <ProyectosProvider>
+                          <SessionProvider>{children}</SessionProvider>
+                        </ProyectosProvider>
                       </EmpleadosProvider>
                     </TransaccionesFinancierasProvider>
                   </SalidasMateriasPrimasProvider>

@@ -9,16 +9,16 @@ interface Params {
 export async function GET(request: Request, { params }: Params) {
   console.log(params.id);
   try {
-    const clientes = await prisma.clientes.findFirst({
+    const proyectos = await prisma.proyectos.findFirst({
       where: {
         id: Number(params.id),
       },
     });
 
-    if (!clientes)
-      return NextResponse.json({ message: "Clients not found" }, { status: 404 });
+    if (!proyectos)
+      return NextResponse.json({ message: "Projects not found" }, { status: 404 });
 
-    return NextResponse.json(clientes);
+    return NextResponse.json(proyectos);
   } catch (error) {
     if (error instanceof Error) {
       return NextResponse.json(
@@ -35,22 +35,22 @@ export async function GET(request: Request, { params }: Params) {
 
 export async function DELETE(request: Request, { params }: Params) {
   try {
-    const deletedclientes = await prisma.clientes.delete({
+    const deletedproyectos = await prisma.proyectos.delete({
       where: {
         id: Number(params.id),
       },
     });
-    if (!deletedclientes)
-      return NextResponse.json({ message: "Clients not found" }, { status: 404 });
+    if (!deletedproyectos)
+      return NextResponse.json({ message: "Projects not found" }, { status: 404 });
 
-    return NextResponse.json(deletedclientes);
+    return NextResponse.json(deletedproyectos);
   } catch (error) {
     console.log(error);
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === "P2025") {
         return NextResponse.json(
           {
-            message: "Client not found",
+            message: "Projects not found",
           },
           {
             status: 404,
@@ -72,21 +72,29 @@ export async function DELETE(request: Request, { params }: Params) {
 
 export async function PUT(request: Request, { params }: Params) {
   try {
-    const { nombre, direccion, telefono, correo_electronico, fecha_registro, historial_compras, nombre_empresa, titulo_encargado, } = await request.json();
+    const {         
+        id, 
+        nombre,
+        lugar_realizacion, 
+        costo_proyecto, 
+        encargado, 
+        area_proyecto,
+        tiempo_meses,
+        cantidad_trabajadores, } = await request.json();
 
-    const updatedclientes = await prisma.clientes.update({
+    const updatedclientes = await prisma.proyectos.update({
       where: {
         id: Number(params.id),
       },
       data: {
-        nombre,          
-        direccion,         
-        telefono,        
-        correo_electronico,
-        fecha_registro, 
-        historial_compras,
-        nombre_empresa,
-        titulo_encargado,
+        id, 
+        nombre,
+        lugar_realizacion, 
+        costo_proyecto, 
+        encargado, 
+        area_proyecto,
+        tiempo_meses,
+        cantidad_trabajadores,
       },
     });
 
@@ -96,7 +104,7 @@ export async function PUT(request: Request, { params }: Params) {
       if (error.code === "P2025") {
         return NextResponse.json(
           {
-            message: "Clients not found",
+            message: "Projects not found",
           },
           {
             status: 404,

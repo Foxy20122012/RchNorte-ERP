@@ -23,6 +23,8 @@ model Clientes {
   correo_electronico String?   @db.VarChar(100)
   fecha_registro     DateTime? @db.Date
   historial_compras  String?   @db.Text
+  nombre_empresa     String?   @db.VarChar(255)
+  titulo_encargado   String?   @db.VarChar(255)
   Ventas             Ventas[]
 }
 
@@ -251,3 +253,13 @@ model Empleados {
   salario            Decimal? @db.Decimal(10, 2)
 }
 
+model proyectos {
+  id                    Int      @id @default(autoincrement())
+  nombre                String   @db.VarChar(255)
+  lugar_realizacion     String?  @db.VarChar(255)
+  costo_proyecto        Decimal? @db.Decimal(10, 2)
+  encargado             String?  @db.VarChar(255)
+  area_proyecto         String?  @db.VarChar(255)
+  tiempo_meses          String?  @db.VarChar(255)
+  cantidad_trabajadores String?  @db.VarChar(255)
+}

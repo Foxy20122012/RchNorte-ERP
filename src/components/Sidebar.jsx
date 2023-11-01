@@ -14,6 +14,7 @@ import { IoIosArrowForward } from "react-icons/io";
 import { GiPayMoney, GiMoneyStack } from "react-icons/gi";
 import { FiBox, FiArrowLeft } from "react-icons/fi";
 import { PiNotePencilFill } from "react-icons/pi";
+import { AiOutlineFundProjectionScreen } from "react-icons/ai";
 import Collapse from "@mui/material/Collapse";
 
 const Sidebar = () => {
@@ -58,6 +59,11 @@ const Sidebar = () => {
       text: "Planilla",
       link: "/planilla",
       icon: <BsFileEarmarkSpreadsheet className="m-3 text-xl font-bold" />,
+    },
+    {
+      text: "Proyectos",
+      link: "/proyectos",
+      icon: <AiOutlineFundProjectionScreen className="m-3 text-xl font-bold" />,
     },
     {
       text: "Cerrar Sesión",

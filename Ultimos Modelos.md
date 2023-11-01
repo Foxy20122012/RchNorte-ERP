@@ -1,3 +1,24 @@
+### Se agregaron 2 campos nuevos para la tabla clientes 
+
+ALTER TABLE Clientes
+ADD COLUMN nombre_empresa VARCHAR(255),
+ADD COLUMN titulo_encargado VARCHAR(255);
+
+### Se agrego una nueva tabla de Proyectos
+
+CREATE TABLE proyectos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    lugar_realizacion VARCHAR(255),
+    costo_proyecto DECIMAL(10, 2),
+    encargado VARCHAR(255),
+    area_proyecto VARCHAR(255),
+    tiempo_meses INT,
+    cantidad_trabajadores INT
+);
+
+
+
 generator client {
   provider = "prisma-client-js"
 }
