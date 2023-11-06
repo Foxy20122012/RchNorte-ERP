@@ -5,6 +5,7 @@ export const config = {
     matcher: [
         '/api/:path*',
         '/nota',
+        '/proyectos',
         '/materiasPrimas',
         '/salidasMateriasPrimas',
         '/clientes',

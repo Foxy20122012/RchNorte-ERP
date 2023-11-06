@@ -172,18 +172,6 @@ function ClientesPage() {
               columns={1}
             />
           </Modal>
-
-          <CountTag
-            datos="Ventas totales"
-            icon={<FaHeart />} // Utiliza el ícono de un corazón de React Icons
-            value={12500}
-            theme="green"
-            title="Resumen de ventas"
-          />
-
-          <div className="flex justify-center items-center">
-            <CustomTabs tabs={tabContent} />
-          </div>
         </div>
       </div>
     </div>

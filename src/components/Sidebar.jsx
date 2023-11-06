@@ -52,8 +52,8 @@ const Sidebar = () => {
     },
     {
       text: "Ventas",
+      link: "/ventas",
       icon: <GiMoneyStack className="m-3 text-xl font-bold" />,
-      onClick: handleVentasClick,
     },
     {
       text: "Planilla",

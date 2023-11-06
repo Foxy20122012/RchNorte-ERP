@@ -115,16 +115,7 @@ function VentasPage() {
         </div>
       ),
     },
-    {
-      label: "Venta Por Materia",
-      icon: <CustomIcon name="FaUser" size={24} />,
-      content: <div className="">Los </div>,
-    },
-    {
-      label: "Configuración",
-      icon: <CustomIcon name="GrConfigure" size={24} />,
-      content: <div>Prueba de texto 3.</div>,
-    },
+
   ];
   const hasMounted = useHasMounted();
   if (!hasMounted) {
